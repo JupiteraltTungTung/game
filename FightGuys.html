@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)https://html-classic.itch.zone/html/15254512/FightGuysWeb/index.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	
+	<title>Fight guys</title>
+	<style>
+		html,
+		body {
+			background-image: url('html/BackgroundWebp.webp');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+
+		div#gameContainer {
+			background: transparent !important;
+			position: absolute;
+		}
+
+		div#gameContainer canvas {
+			position: absolute;
+		}
+
+		div#gameContainer canvas[data-pixel-art="true"] {
+			position: absolute;
+			image-rendering: optimizeSpeed;
+			image-rendering: -webkit-crisp-edges;
+			image-rendering: -moz-crisp-edges;
+			image-rendering: -o-crisp-edges;
+			image-rendering: crisp-edges;
+			image-rendering: -webkit-optimize-contrast;
+			image-rendering: optimize-contrast;
+			image-rendering: pixelated;
+			-ms-interpolation-mode: nearest-neighbor;
+		}
+
+		h1 {
+			position: absolute;
+			top: calc(50% - 1.8rem);
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: #f0ede3;
+			font-family: "Helvetica", Courier, monospace;
+			font-size: 2rem;
+			text-align: center;
+			margin: 0;
+			font-size: 28px;
+		}
+
+		h1 img {
+			position: absolute;
+			width: 600px;
+			top: calc(50% - 6.8rem);
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: block;
+			margin: 0 auto;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Loading...</h1>
+	<div id="gameContainer" style="width: 975px; height: 659px; top: 0px; left: 0px;">
+		<canvas id="unity-canvas" width="720" height="405" data-pixel-art="" style="width: 975px; height: 659px;"></canvas>
+		<script src="./FightGuys_files/686238738abff15f54118cc73b1b1055.loader.js"></script>
+		<script>
+			var canvas = document.querySelector("#unity-canvas");
+			var config = {
+				dataUrl: "Build/62254bd5743f4dcd690d2fbbaa1dfb87.data.br",
+				frameworkUrl: "Build/5b4bfce8d2c42ef70523aa4e5476858d.framework.js.br",
+				codeUrl: "Build/7fc56699b72ddd8252cea007878b0ac7.wasm.br",
+			streamingAssetsUrl: "StreamingAssets",
+				companyName: "Leo Schweiger, David Zandanell",
+				productName: "Fight guys",
+				productVersion: "0.2.2",
+			};
+			var scaleToFit;
+			try {
+				scaleToFit = !!JSON.parse("");
+			} catch (e) {
+				scaleToFit = true;
+			}
+
+			function progressHandler(progress) {
+				var percent = progress * 100 + '%';
+				canvas.style.background = 'linear-gradient(to right, #f0ede3, #f0ede3 ' + percent + ', transparent ' + percent + ', transparent) no-repeat center';
+				canvas.style.backgroundSize = '20rem .8rem';
+			}
+			function onResize() {
+				var container = canvas.parentElement;
+				var w;
+				var h;
+
+				if (scaleToFit) {
+					w = window.innerWidth;
+					h = window.innerHeight;
+
+					var r = 405 / 720;
+
+					// if (w * r > window.innerHeight) {
+					// 	w = Math.min(w, Math.ceil(h / r));
+					// }
+					// h = Math.floor(w * r);
+				} else {
+					w = 720;
+					h = 405;
+				}
+
+				container.style.width = canvas.style.width = w + "px";
+				container.style.height = canvas.style.height = h + "px";
+				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+			}
+			createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+				canvas = instance.Module.canvas;
+				onResize();
+
+				// Remove the loading text
+				const loadingText = document.querySelector('h1');
+				if (loadingText) {
+					loadingText.remove(); // or loadingText.style.display = 'none';
+				}
+			});
+			window.addEventListener('resize', onResize);
+			onResize();
+
+			if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+				// Mobile device style: fill the whole browser client area with the game canvas:
+				const meta = document.createElement('meta');
+				meta.name = 'viewport';
+				meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+				document.getElementsByTagName('head')[0].appendChild(meta);
+			}
+		</script>
+	</div>
+
+
+
+</body></html>
