@@ -1,11 +1,3 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-L7856P3VNT');
-</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,23 +6,44 @@
 </head>
 <body style="background: #121212; font-family: verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px;">
 
-  <table style="margin: 0 0 20px 0; width: 968px; background: #fff; border: 1px solid #F3F3F3;" cellspacing="0" cellpadding="0">
-    <tr>
-      <td style="padding: 5px;">
-        <iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="width:968px; height:561px;" src="https://game316009.konggames.com/gamez/0031/6009/live/index.html" frameborder="0" scrolling="no"></iframe>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-size: 12px; padding: 10px; border-top: 1px solid #F3F3F3;" align="center">
-        <strong><a href="https://m.gamesflow.com/?play=10018114" target="_blank" style="color: #000; text-decoration: none;">Retro Bowl</a></strong> | <a href="https://m.gamesflow.com" title="Jupiter Games" target="_blank" style="color: #666; text-decoration: none;">Gamesflow</a>
-      </td>
-    </tr>
-  </table>
+  <table style="margin: 0 0 20px 0; width: 968px; background: #fff; border: 1px solid #F3F3F3;" cellspacing="0" cellpadding="0">    
+    <tr>      
+      <td style="padding: 5px;" align="center">
+        <!-- Direct link button if iframe blocks local storage on your browser -->
+        <div style="padding: 10px; background: #222; color: #fff; font-size: 14px; margin-bottom: 10px; border-radius: 4px;">
+          Playing locally? If the game doesn't save, play directly here: 
+          <a href="https://game316009.konggames.com/gamez/0031/6009/live/index.html" target="_blank" style="color: #ff9800; font-weight: bold;">Open Game in New Tab</a>
+        </div>
+        <iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="width:968px; height:561px;" src="https://game316009.konggames.com/gamez/0031/6009/live/index.html" frameborder="0" scrolling="no"></iframe>      
+      </td>    </tr>    
+    <tr>      
+      <td style="font-size: 12px; padding: 10px; border-top: 1px solid #F3F3F3;" align="center">        
+        <strong><a href="https://m.gamesflow.com/?play=10018114" target="_blank" style="color: #000; text-decoration: none;">Retro Bowl</a></strong> | <a href="https://m.gamesflow.com" title="Jupiter Games" target="_blank" style="color: #666; text-decoration: none;">Gamesflow</a>      
+      </td>    
+    </tr>  </table>
 
-  <button type="button" style="font-size: 1.2rem; padding: 15px 30px; background-color: #ff9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); transition: transform 0.1s, background-color 0.2s;" 
-          onclick="if (localStorage.getItem('RetroBowl.0.savedata.ini')) { let z = prompt('How many Coaching Credits do you have right now? (Please enter the exact number)'); if (z !== null) { localStorage.setItem('RetroBowl.0.savedata.ini', localStorage.getItem('RetroBowl.0.savedata.ini').replace('coach_credit=\u0022' + z + '\u0022', 'coach_credit=\u002299999\u0022')); window.location.reload(); } } else { alert('You must open up a new game save inside the Retro Bowl emulator first!'); }">
-    Get Infinite Credits (Enable Hack)
-  </button>
+  <button type="button" style="font-size: 1.2rem; padding: 15px 30px; background-color: #ff9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); transition: transform 0.1s, background-color 0.2s;" onclick="
+    let key = 'RetroBowl.0.savedata.ini';
+    let data = localStorage.getItem(key);
+    
+    if (!data) {
+        alert('No save data found on this page origin! Make sure you start a new game first, or use the direct link above if localStorage is restricted by the iframe.');
+    } else {
+        let z = prompt('How many Coaching Credits do you have right now? (Please enter the exact number)', '10');
+        if (z !== null) {
+            if (data.includes('coach_credit=&quot;' + z + '&quot;') || data.includes('coach_credit=&quot;' + z + '&quot;')) {
+                let updated = data.replace('coach_credit=&quot;' + z + '&quot;', 'coach_credit=&quot;99999&quot;');
+                localStorage.setItem(key, updated);
+            } else {
+                // Fallback regex pattern to match any credit value safely
+                let updated = data.replace(/coach_credit=&quot;[^&quot;]*&quot;/, 'coach_credit=&quot;99999&quot;');
+                localStorage.setItem(key, updated);
+            }
+            alert('Success! Credits updated to 99,999. Refreshing...');
+            location.reload();
+        }
+    }
+  ">    Get Infinite Credits (Enable Hack)  </button>
 
 </body>
 </html>
